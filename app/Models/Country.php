@@ -9,4 +9,15 @@ class Country extends Model
 {
     /** @use HasFactory<\Database\Factories\CountryFactory> */
     use HasFactory;
+
+    protected $fillable = [
+    'name',
+    'area_km2',
+    'population',
+    ];
+
+    public function cities()
+    {
+    return $this->hasMany(City::class);
+    }
 }
