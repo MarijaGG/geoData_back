@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Country;
+use App\Models\City;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +15,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+         $countries = Country::factory()->count(5)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Izveido 20 pilsētas, katrai piešķirot kādu no izveidotajām valstīm
+        City::factory()->count(20)->make()->each(function ($city) use ($countries) {
+            $city->country_id = $countries->random()->id;
+            $city->save();
+        });
     }
 }

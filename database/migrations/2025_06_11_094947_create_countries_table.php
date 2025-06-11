@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('countries', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 100);
+            $table->decimal('area_km2', 10, 2); // 8 cipari + 2 pēc komata
+            $table->unsignedBigInteger('population');
             $table->timestamps();
-        });
+    });
     }
+
 
     /**
      * Reverse the migrations.

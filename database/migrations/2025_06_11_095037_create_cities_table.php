@@ -10,12 +10,18 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
+    {   
         Schema::create('cities', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+        $table->id();
+        $table->string('name', 255);
+        $table->foreignId('country_id')
+              ->constrained('countries')
+              ->onUpdate('cascade')
+              ->onDelete('cascade');
+        $table->timestamps();
+    });
     }
+
 
     /**
      * Reverse the migrations.
